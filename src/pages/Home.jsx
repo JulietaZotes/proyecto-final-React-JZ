@@ -2,9 +2,9 @@ import { Carousel } from "react-bootstrap";
 
 function Home () {
     const imagenStyle = {
-        
         objectFit: "cover",
-        width: "100%"
+        width: "100%",
+        maxHeight: "90vh"
     };
 
     return (
