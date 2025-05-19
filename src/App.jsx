@@ -8,13 +8,19 @@ import Contacto from './pages/Contacto';
 import Login from './pages/Login';
 import RutaProtegida from './components/RutaProtegida';
 import Administracion from './pages/Administracion';
+import Swal from 'sweetalert2';
 
 function App() {
   const [carrito, setCarrito] = useState([]);
   const [mostrarCarrito, setMostrarCarrito] = useState(false);
 
   const agregarAlCarrito = (producto) => {
-    setCarrito(prev => [...prev, producto]);
+      Swal.fire({
+                title: `${producto.title}`,
+                text: `¡Ha sido agregado con éxito al carrito!`,
+                icon: "success",
+                confirmButtonText: "Aceptar"
+            });
   }
   
   const toggleCarrito = () => setMostrarCarrito(!mostrarCarrito);

@@ -7,8 +7,6 @@ function Navegacion({ carrito, toggleCarrito }) {
   const navigate = useNavigate();
   const isAuth = localStorage.getItem("auth") === "true";
 
-  const cantidadTotal = carrito.reduce((acc, item) => acc + (item.cantidad || 1), 0);
-
   const cerrarSesion = () => {
     localStorage.removeItem("auth");
     navigate("/login");
@@ -56,11 +54,6 @@ function Navegacion({ carrito, toggleCarrito }) {
 
             <Nav.Link onClick={toggleCarrito} style={{ cursor: "pointer" }}>
               <FaShoppingCart />
-              {cantidadTotal > 0 && (
-                <Badge pill bg="danger" className="ms-1">
-                  {cantidadTotal}
-                </Badge>
-              )}
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
