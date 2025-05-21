@@ -28,6 +28,7 @@ function Contacto() {
                         type="text"
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
+                        required
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -38,6 +39,7 @@ function Contacto() {
                         placeholder="Escribe tu consulta o mensaje aqui..."
                         value={mensaje}
                         onChange={(e) => setMensaje(e.target.value)}
+                        required
                     />
                 </Form.Group>
                 <Button variant="dark" type="submit">Enviar</Button>

@@ -49,7 +49,7 @@ function Productos({ agregarAlCarrito }) {
                     <h2 className="mb-4 text-capitalize text-center">{categoria}</h2>
                     <Row>
                         {productos.map(producto => (
-                            <Col key={producto.id} md={4} className="mb-4">
+                            <Col key={producto.id} sm={6} md={4} lg={3} className="mb-4">
                                 <Card>
                                     <Card.Img variant="top" src={producto.thumbnail} />
                                     <Card.Body>
@@ -61,7 +61,7 @@ function Productos({ agregarAlCarrito }) {
                                             {producto.title}
                                         </Card.Title>
                                         <Card.Text>${producto.price}</Card.Text>
-                                        <Button className="w-100" variant="primary" onClick={() => agregarAlCarrito(producto)}
+                                        <Button className="w-100" variant="dark" onClick={() => agregarAlCarrito(producto)}
                                         >Agregar al carrito</Button>
                                     </Card.Body>
                                 </Card>
