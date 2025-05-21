@@ -47,26 +47,5 @@ function Layout({ children, carrito, mostrarCarrito, toggleCarrito }) {
     </div>
   );
 }
-// function Layout({ children, carrito }) {
-//   const layoutStyle = {
-//     display: "flex",
-//     flexDirection: "column",
-//     minHeight: "100vh",
-//   };
-
-//   const contentStyle = {
-//     flex: 1,
-//   };
-
-//   return (
-//     <div style={layoutStyle}>
-//       <Navegacion carrito={carrito} />
-//       <div style={contentStyle}>
-//         {children}
-//       </div>
-//       <Footer />
-//     </div>
-//   );
-// }
 
 export default Layout;
