@@ -1,11 +1,16 @@
-import { Navbar, Nav, NavDropdown, Container, Badge, Button } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Container, Button, Badge } from "react-bootstrap";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import logo from '../assets/beauty-store-logo.png'
+import { CarritoContext } from "./CarritoContext";
 
-function Navegacion({ carrito, toggleCarrito }) {
+function Navegacion({ toggleCarrito }) {
   const navigate = useNavigate();
   const isAuth = localStorage.getItem("auth") === "true";
+  const { carrito } = useContext(CarritoContext);
+
+  const cantidadTotalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
 
   const cerrarSesion = () => {
     localStorage.removeItem("auth");
@@ -49,14 +54,29 @@ function Navegacion({ carrito, toggleCarrito }) {
               <Button variant="outline-danger" onClick={cerrarSesion}>Cerrar sesión</Button>
             )}
           </Nav>
+          </Navbar.Collapse>
 
           <Nav>
 
-            <Nav.Link onClick={toggleCarrito} style={{ cursor: "pointer" }}>
+            <Nav.Link onClick={toggleCarrito} style={{ cursor: "pointer", position: "relative" }}>
               <FaShoppingCart />
+              {cantidadTotalItems > 0 && (
+                <Badge
+                  pill
+                  bg="danger"
+                  style={{
+                    position: "absolute",
+                    top: "5px",
+                    right: "-5px",
+                    fontSize: "0.6rem"
+                  }}
+                >
+                  {cantidadTotalItems}
+                </Badge>
+              )}
             </Nav.Link>
           </Nav>
-        </Navbar.Collapse>
+
       </Container>
     </Navbar>
   );

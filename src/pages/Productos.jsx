@@ -1,9 +1,12 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Container, Row, Col, Card, Button, Spinner } from "react-bootstrap";
 import Swal from 'sweetalert2';
+import { CarritoContext } from "../components/CarritoContext";
 
-function Productos({ agregarAlCarrito }) {
+
+function Productos() {
+    const { agregarAlCarrito } = useContext(CarritoContext);
     const { categoria } = useParams();
     const [productos, setProductos] = useState([]);
     const [loading, setLoading] = useState(true);

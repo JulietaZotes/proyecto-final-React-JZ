@@ -1,8 +1,12 @@
 import Navegacion from "./Navegacion";
 import Footer from "./Footer";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import { useContext } from "react";
+import { CarritoContext } from "./CarritoContext";
+import Carrito from "./Carrito";
 
-function Layout({ children, carrito, mostrarCarrito, toggleCarrito }) {
+function Layout({ children, mostrarCarrito, toggleCarrito }) {
+  const { carrito } = useContext(CarritoContext); 
   const layoutStyle = {
     display: "flex",
     flexDirection: "column",
@@ -24,24 +28,7 @@ function Layout({ children, carrito, mostrarCarrito, toggleCarrito }) {
           <Offcanvas.Title>Carrito</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          {carrito.length === 0 ? (
-    <p>No hay productos en el carrito.</p>
-  ) : (
-    carrito.map((item) => (
-      <div key={item.id} style={{ display: "flex", marginBottom: "1rem", alignItems: "center" }}>
-        <img 
-          src={item.thumbnail} 
-          alt={item.title}
-          style={{ width: "60px", height: "60px", objectFit: "cover", borderRadius: "8px", marginRight: "10px" }}
-        />
-        <div>
-          <strong style={{ fontSize: "0.95rem" }}>{item.title}</strong>
-          <p style={{ margin: 0 }}>Cantidad: {item.cantidad || 1}</p>
-          <p style={{ margin: 0 }}>Precio: ${item.price}</p>
-        </div>
-      </div>
-    ))
-  )}
+          <Carrito/>
         </Offcanvas.Body>
       </Offcanvas>
     </div>
