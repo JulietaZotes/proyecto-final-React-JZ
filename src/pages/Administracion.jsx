@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
+import ProductsCrud from '../components/ProductsCrud';
 
 function Administracion() {
     const [usuario, setUsuario] = useState("");
 
-    useEffect (() => {
+    useEffect(() => {
+        document.title = "Administración | Beauty Store";
+    }, []);
+
+    useEffect(() => {
         const user = localStorage.getItem("usuario");
         if (user) setUsuario(user);
     }, []);
@@ -13,7 +18,7 @@ function Administracion() {
         <Container className="mt-4">
             <h2>Panel de Administración</h2>
             <h4>¡Hola, {usuario}!</h4>
-            <p>Acceso exclusivo para usuarios autenticados.</p>
+            <ProductsCrud />
         </Container>
     );
 }

@@ -1,7 +1,11 @@
 import { Container } from "react-bootstrap";
-import nosotrosImg from "../assets/nosotros.jpg"; // Reemplazá con tu imagen
+import nosotrosImg from "../assets/nosotros.jpg";
+import { useEffect } from "react";
 
 function Nosotros() {
+  useEffect(() => {
+    document.title = "Nosotros | Beauty Store";
+  }, []);
   return (
     <Container fluid className="p-0" style={{ minHeight: '100vh', paddingTop: '56px' }}>
       <div style={{ height: "70vh", overflow: 'hidden' }}>

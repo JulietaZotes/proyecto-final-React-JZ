@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
+    useEffect(() => {
+        document.title = "Login | Beauty Store";
+    }, []);
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
 
     const handleLogin = () => {
-        const nombreUsuario = email.split("@") [0];
+        const nombreUsuario = email.split("@")[0];
         localStorage.setItem("auth", "true");
         localStorage.setItem("usuario", nombreUsuario);
         navigate("/administracion");

@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { Container, Row, Col, Card, Button, Spinner } from "react-bootstrap";
-import Swal from 'sweetalert2';
+import { ToastContainer, toast } from "react-toastify";
 import { CarritoContext } from "../components/CarritoContext";
 
 
@@ -10,9 +10,15 @@ function Productos() {
     const { categoria } = useParams();
     const [productos, setProductos] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        document.title = `${categoria} | Beauty Store`;
+    }, [categoria]);
 
     useEffect(() => {
         setLoading(true);
+        setError(null);
 
         fetch(`https://dummyjson.com/products/category/${categoria}`)
             .then(res => res.json())
@@ -23,12 +29,8 @@ function Productos() {
                 setProductos(data.products);
             })
             .catch(err => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Error al cargar los productos de la API',
-                    footer: `<span style="color:red;">${err.message}</span>`
-                });
+                setError(err.message);
+                toast.error("No se pudieron cargar los productos");
                 console.error("Error al cargar los productos de la API", err);
             })
             .finally(() => setLoading(false));
@@ -73,6 +75,7 @@ function Productos() {
                     </Row>
                 </Container>
             ) : null}
+            <ToastContainer position="top-right" autoClose={3000} />
         </>
     )
 }

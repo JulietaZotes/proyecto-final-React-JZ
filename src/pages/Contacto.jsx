@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 
 function Contacto() {
+    useEffect(() => {
+        document.title = "Contacto | Beauty Store";
+    }, []);
+
     const [nombre, setNombre] = useState("");
     const [mensaje, setMensaje] = useState("");
 

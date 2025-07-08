@@ -8,7 +8,6 @@ import Contacto from './pages/Contacto';
 import Login from './pages/Login';
 import RutaProtegida from './components/RutaProtegida';
 import Administracion from './pages/Administracion';
-import Swal from 'sweetalert2';
 import { CarritoProvider } from './components/CarritoContext';
 
 function App() {

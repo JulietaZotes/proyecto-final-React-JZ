@@ -1,9 +1,14 @@
 import { Carousel } from "react-bootstrap";
+import { useEffect } from "react";
 
 function Home() {
+    useEffect(() => {
+        document.title = "Inicio | Beauty Store";
+    }, []);
+
     const imagenStyle = {
         width: "100%",
-        height: "90vh", 
+        height: "90vh",
         objectFit: "cover",
         display: "block"
     };
