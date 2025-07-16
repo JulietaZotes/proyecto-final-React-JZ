@@ -22,12 +22,13 @@ Ecommerce de productos de belleza desarrollado con React + Vite.
 
 ## 📁 Estructura básica
 
+```text
 proyecto-final-react-jz/
 ├── public/
 ├── src/
-│ ├── components/
-│ ├── pages/
-│ └── App.jsx
+│   ├── components/
+│   ├── pages/
+│   └── App.jsx
 ├── package.json
 └── README.md
 
@@ -68,6 +69,6 @@ npm run build
 
 ---
 
-### 💻 Autora
+### 💻 Desarrollado por
 
 Julieta Zotes
