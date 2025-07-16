@@ -31,6 +31,7 @@ proyecto-final-react-jz/
 │   └── App.jsx
 ├── package.json
 └── README.md
+```text
 
 ---
 
