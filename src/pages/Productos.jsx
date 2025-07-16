@@ -1,83 +1,87 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import { Container, Row, Col, Card, Button, Spinner } from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
+import { Container, Row, Col, Card, Button, Spinner, Alert } from "react-bootstrap";
 import { CarritoContext } from "../components/CarritoContext";
+import Buscador from "../components/Buscador";
+import { toast } from 'react-toastify';
 
 
 function Productos() {
-    const { agregarAlCarrito } = useContext(CarritoContext);
-    const { categoria } = useParams();
-    const [productos, setProductos] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const { agregarAlCarrito } = useContext(CarritoContext);
+  const { categoria } = useParams();
+  const [productos, setProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [busqueda, setBusqueda] = useState("");
 
-    useEffect(() => {
-        document.title = `${categoria} | Beauty Store`;
-    }, [categoria]);
+  useEffect(() => {
+    document.title = `${categoria} | Beauty Store`;
+  }, [categoria]);
 
-    useEffect(() => {
-        setLoading(true);
-        setError(null);
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
+    fetch(`https://dummyjson.com/products/category/${categoria}`)
+      .then(res => res.json())
+      .then(data => {
+        if (!data.products || data.products.length === 0) {
+          throw new Error("La categoría no existe o no contiene productos.");
+        }
+        setProductos(data.products);
+      })
+      .catch(err => setError(err.message))
+      .finally(() => setLoading(false));
+  }, [categoria]);
 
-        fetch(`https://dummyjson.com/products/category/${categoria}`)
-            .then(res => res.json())
-            .then(data => {
-                if (!data.products || data.products.length === 0) {
-                    throw new Error("La categoría no existe o no contiene productos.");
-                }
-                setProductos(data.products);
-            })
-            .catch(err => {
-                setError(err.message);
-                toast.error("No se pudieron cargar los productos");
-                console.error("Error al cargar los productos de la API", err);
-            })
-            .finally(() => setLoading(false));
-    }, [categoria]);
+  const productosFiltrados = productos.filter(p =>
+    p.title.toLowerCase().includes(busqueda.toLowerCase())
+  );
 
-    return (
-        <>
-            {loading ? (
-                <div
-                    style={{
-                        minHeight: "100vh",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center"
+  useEffect(() => {
+    if (error) {
+      toast.error("Error al cargar los productos. Intente nuevamente");
+    }
+  }, [error]);
+
+  return (
+    <Container className="mt-4">
+      <Buscador busqueda={busqueda} setBusqueda={setBusqueda} />
+
+      {loading ? (
+        <div className="d-flex justify-content-center align-items-center" style={{ height: '50vh' }}>
+          <Spinner animation="border" />
+        </div>
+
+      ) : (
+        <Row>
+          {productosFiltrados.length === 0 ? (
+            <p>No se encontraron productos.</p>
+          ) : (
+            productosFiltrados.map(producto => (
+              <Col key={producto.id} md={4} className="mb-4">
+                <Card>
+                  <Card.Img variant="top" src={producto.thumbnail} style={{ height: "200px", objectFit: "contain" }} />
+                  <Card.Body>
+                    <Card.Title style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis"
                     }}
-                >
-                    <Spinner animation="border" />
-                </div>
-            ) : productos.length > 0 ? (
-                <Container className="mt-4">
-                    <h2 className="mb-4 text-capitalize text-center">{categoria}</h2>
-                    <Row>
-                        {productos.map(producto => (
-                            <Col key={producto.id} sm={6} md={4} lg={3} className="mb-4">
-                                <Card>
-                                    <Card.Img variant="top" src={producto.thumbnail} />
-                                    <Card.Body>
-                                        <Card.Title style={{
-                                            whiteSpace: "nowrap",
-                                            overflow: "hidden",
-                                            textOverflow: "ellipsis"
-                                        }}>
-                                            {producto.title}
-                                        </Card.Title>
-                                        <Card.Text>${producto.price}</Card.Text>
-                                        <Button className="w-100" variant="dark" onClick={() => agregarAlCarrito(producto)}
-                                        >Agregar al carrito</Button>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        ))}
-                    </Row>
-                </Container>
-            ) : null}
-            <ToastContainer position="top-right" autoClose={3000} />
-        </>
-    )
+                    >{producto.title}
+                    </Card.Title>
+                    <Card.Text>${producto.price}</Card.Text>
+                    <Button className="w-100" variant="dark" onClick={() => agregarAlCarrito(producto)}>
+                      Agregar al carrito
+                    </Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))
+          )}
+        </Row>
+      )}
+    </Container>
+  );
 }
 
 export default Productos;

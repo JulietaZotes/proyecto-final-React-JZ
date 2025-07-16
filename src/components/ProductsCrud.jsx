@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Table, Button, Form, Modal, Spinner, Alert } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
+import Paginador from "./Paginador";
 import 'react-toastify/dist/ReactToastify.css';
 
 const API_URL = "https://686c15ae14219674dcc7325b.mockapi.io/api/products";
@@ -19,6 +20,9 @@ const ProductsCrud = () => {
     const [productToDelete, setProductToDelete] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+
+    const [paginaActual, setPaginaActual] = useState(1);
+    const productosPorPagina = 10;
 
     const categories = ["beauty", "skin-care", "fragrances"];
 
@@ -112,6 +116,11 @@ const ProductsCrud = () => {
         getProducts();
     }, []);
 
+    const indiceUltimoProducto = paginaActual * productosPorPagina;
+    const indicePrimerProducto = indiceUltimoProducto - productosPorPagina;
+    const productosMostrados = products.slice(indicePrimerProducto, indiceUltimoProducto);
+    const totalPaginas = Math.ceil(products.length / productosPorPagina);
+
     return (
         <div className="container mt-4">
             <div className="d-flex justify-content-between align-items-center mb-3">
@@ -139,37 +148,47 @@ const ProductsCrud = () => {
             )}
 
             {!isLoading && !error && (
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Título</th>
-                            <th>Precio</th>
-                            <th>Categoría</th>
-                            <th>Imagen</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {products.map(prod => (
-                            <tr key={prod.id}>
-                                <td>{prod.title}</td>
-                                <td>${Number(prod.price).toFixed(2)}</td>
-                                <td>{prod.category}</td>
-                                <td>
-                                    {prod.thumbnail && prod.thumbnail.startsWith('http') ? (
-                                        <img src={prod.thumbnail} alt={prod.title} width={30} />
-                                    ) : (
-                                        <span>Sin imagen</span>
-                                    )}
-                                </td>
-                                <td>
-                                    <Button size="sm" variant="outline-primary" onClick={() => handleShow(prod)}>Editar</Button>{' '}
-                                    <Button size="sm" variant="outline-danger" onClick={() => confirmarEliminar(prod)}>Eliminar</Button>
-                                </td>
+                <>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Precio</th>
+                                <th>Categoría</th>
+                                <th>Imagen</th>
+                                <th>Acciones</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </Table>
+                        </thead>
+                        <tbody>
+                            {productosMostrados.map(prod => (
+                                <tr key={prod.id}>
+                                    <td>{prod.title}</td>
+                                    <td>${Number(prod.price).toFixed(2)}</td>
+                                    <td>{prod.category}</td>
+                                    <td>
+                                        {prod.thumbnail && prod.thumbnail.startsWith('http') ? (
+                                            <img src={prod.thumbnail} alt={prod.title} width={30} />
+                                        ) : (
+                                            <span>Sin imagen</span>
+                                        )}
+                                    </td>
+                                    <td>
+                                        <Button size="sm" variant="outline-primary" onClick={() => handleShow(prod)}>Editar</Button>{' '}
+                                        <Button size="sm" variant="outline-danger" onClick={() => confirmarEliminar(prod)}>Eliminar</Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+
+                    {totalPaginas > 1 && (
+                        <Paginador
+                            totalPaginas={totalPaginas}
+                            paginaActual={paginaActual}
+                            cambiarPagina={setPaginaActual}
+                        />
+                    )}
+                </>
             )}
 
             <Modal show={show} onHide={handleClose} centered>

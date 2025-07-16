@@ -42,7 +42,7 @@ function Navegacion({ toggleCarrito }) {
             <Nav.Link as={Link} to="/contacto">Contacto</Nav.Link>
             {isAuth && (
               <>
-                <Nav.Link as={Link} to="/administracion">Administracion</Nav.Link>
+                <Nav.Link as={Link} to="/administracion">Administración</Nav.Link>
               </>
             )}
           </Nav>
@@ -54,28 +54,28 @@ function Navegacion({ toggleCarrito }) {
               <Button variant="outline-danger" onClick={cerrarSesion}>Cerrar sesión</Button>
             )}
           </Nav>
-          </Navbar.Collapse>
+        </Navbar.Collapse>
 
-          <Nav>
+        <Nav>
 
-            <Nav.Link onClick={toggleCarrito} style={{ cursor: "pointer", position: "relative" }}>
-              <FaShoppingCart />
-              {cantidadTotalItems > 0 && (
-                <Badge
-                  pill
-                  bg="danger"
-                  style={{
-                    position: "absolute",
-                    top: "5px",
-                    right: "-5px",
-                    fontSize: "0.6rem"
-                  }}
-                >
-                  {cantidadTotalItems}
-                </Badge>
-              )}
-            </Nav.Link>
-          </Nav>
+          <Nav.Link onClick={toggleCarrito} style={{ cursor: "pointer", position: "relative" }}>
+            <FaShoppingCart />
+            {cantidadTotalItems > 0 && (
+              <Badge
+                pill
+                bg="danger"
+                style={{
+                  position: "absolute",
+                  top: "5px",
+                  right: "-5px",
+                  fontSize: "0.6rem"
+                }}
+              >
+                {cantidadTotalItems}
+              </Badge>
+            )}
+          </Nav.Link>
+        </Nav>
 
       </Container>
     </Navbar>

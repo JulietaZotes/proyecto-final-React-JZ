@@ -9,6 +9,8 @@ import Login from './pages/Login';
 import RutaProtegida from './components/RutaProtegida';
 import Administracion from './pages/Administracion';
 import { CarritoProvider } from './components/CarritoContext';
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const [mostrarCarrito, setMostrarCarrito] = useState(false);
@@ -32,6 +34,7 @@ function App() {
             } />
           </Routes>
         </Layout>
+      <ToastContainer position="top-right" autoClose={3000} />
       </CarritoProvider>
     </BrowserRouter>
   );

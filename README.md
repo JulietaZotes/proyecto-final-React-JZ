@@ -1,12 +1,73 @@
-# React + Vite
+# 🛍️ Beauty Store – Proyecto Final Julieta Zotes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ecommerce de productos de belleza desarrollado con React + Vite.
 
-Currently, two official plugins are available:
+## ✨ Descripción
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Beauty Store** es una tienda online en la que se pueden explorar diferentes categorías de productos de belleza. Cuenta con un buscador integrado, un carrito de compras y un acceso exclusivo para administración que permite gestionar productos mediante un CRUD.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Tecnologías utilizadas
+
+- **React 19**
+- **React Router DOM** – Navegación y rutas protegidas
+- **React-Bootstrap + Bootstrap 5** – Estilos y componentes
+- **React Toastify** – Notificaciones
+- **SweetAlert2** – Diálogos y confirmaciones
+- **Vite** – Bundler ultrarrápido
+- **ESLint** – Linter para mantener calidad de código
+
+---
+
+## 📁 Estructura básica
+
+proyecto-final-react-jz/
+├── public/
+├── src/
+│ ├── components/
+│ ├── pages/
+│ └── App.jsx
+├── package.json
+└── README.md
+
+---
+
+## ⚙️ Instalación y uso
+
+### 1. Clonar el repositorio
+
+git clone https://github.com/JulietaZotes/proyecto-final-React-JZ.git
+cd proyecto-final-React-JZ
+
+### 2. Instalar dependencias
+
+npm install
+
+### 3. Iniciar el proyecto en modo desarrollo
+
+npm run dev
+
+---
+
+### 🔐 Acceso a la administración
+
+La sección de administración está protegida por login. Solo usuarios autenticados pueden acceder al panel para crear, editar o eliminar productos.
+
+### 🔓 **Cualquier combinación de usuario y contraseña permite el ingreso.**
+
+### Ruta protegida
+
+/administracion
+
+---
+
+### 📦 Build para producción
+
+npm run build
+
+---
+
+### 💻 Autora
+
+Julieta Zotes

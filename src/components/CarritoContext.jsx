@@ -1,4 +1,5 @@
-import { children, createContext, useState } from "react";
+import { createContext, useState } from "react";
+import { toast } from "react-toastify";
 
 export const CarritoContext = createContext();
 
@@ -15,10 +16,12 @@ export const CarritoProvider = ({ children }) => {
             }
             return [...prevCarrito, { ...producto, cantidad: 1 }]
         })
+        toast.success(`${producto.title} agregado al carrito`)
     }
 
     const eliminarDelCarrito = (id) => {
         setCarrito((prevCarrito => prevCarrito.filter(item => item.id !== id)))
+        toast.success("Producto eliminado del carrito")
     };
 
     const vaciarCarrito = () => {
