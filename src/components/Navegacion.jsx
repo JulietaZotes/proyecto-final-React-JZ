@@ -2,7 +2,7 @@ import { Navbar, Nav, NavDropdown, Container, Button, Badge } from "react-bootst
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
-import logo from '../assets/beauty-store-logo.png'
+import logo from '../assets/beauty-store-logo.png';
 import { CarritoContext } from "./CarritoContext";
 
 function Navegacion({ toggleCarrito }) {
@@ -17,10 +17,11 @@ function Navegacion({ toggleCarrito }) {
     navigate("/login");
   };
 
-
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
+
+        {/* Logo */}
         <Navbar.Brand as={Link} to="/">
           <img
             src={logo}
@@ -29,7 +30,32 @@ function Navegacion({ toggleCarrito }) {
             style={{ objectFit: 'contain', display: 'block' }}
           />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+        {/* Toggle y carrito para versión móvil */}
+        <div className="d-flex d-lg-none align-items-center ms-auto">
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Nav.Link
+            onClick={toggleCarrito}
+            style={{ cursor: "pointer", position: "relative", marginLeft: "10px", color: "#c7c8c9" }}
+          >
+            <FaShoppingCart />
+            {cantidadTotalItems > 0 && (
+              <Badge
+                pill
+                bg="danger"
+                style={{
+                  position: "absolute",
+                  top: "-5px",
+                  right: "-7px",
+                  fontSize: "0.6rem"
+                }}
+              >
+                {cantidadTotalItems}
+              </Badge>
+            )}
+          </Nav.Link>
+        </div>
+
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/">Inicio</Nav.Link>
@@ -41,9 +67,7 @@ function Navegacion({ toggleCarrito }) {
             <Nav.Link as={Link} to="/nosotros">Nosotros</Nav.Link>
             <Nav.Link as={Link} to="/contacto">Contacto</Nav.Link>
             {isAuth && (
-              <>
-                <Nav.Link as={Link} to="/administracion">Administración</Nav.Link>
-              </>
+              <Nav.Link as={Link} to="/administracion">Administración</Nav.Link>
             )}
           </Nav>
 
@@ -56,9 +80,12 @@ function Navegacion({ toggleCarrito }) {
           </Nav>
         </Navbar.Collapse>
 
-        <Nav>
-
-          <Nav.Link onClick={toggleCarrito} style={{ cursor: "pointer", position: "relative" }}>
+        {/* Carrito versión escritorio */}
+        <Nav className="d-none d-lg-flex">
+          <Nav.Link
+            onClick={toggleCarrito}
+            style={{ cursor: "pointer", position: "relative" }}
+          >
             <FaShoppingCart />
             {cantidadTotalItems > 0 && (
               <Badge
@@ -83,3 +110,4 @@ function Navegacion({ toggleCarrito }) {
 }
 
 export default Navegacion;
+
